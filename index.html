@@ -478,30 +478,21 @@
     *{animation:none !important; transition:none !important;}
   }
 
-
-/* Scroll to top button */
-#scrollTopBtn{
-position:fixed;
-bottom:24px;
-right:24px;
-width:52px;
-height:52px;
-border:none;
-border-radius:50%;
-background:var(--navy);
-color:#fff;
-font-size:22px;
-cursor:pointer;
-box-shadow:0 8px 24px rgba(0,0,0,.25);
-z-index:9999;
-transition:transform .2s ease,background .2s ease;
-}
-#scrollTopBtn:hover{
+.join-discussion-wrap{text-align:center;margin-top:18px;}
+.join-discussion-btn{
+display:inline-block;
+padding:10px 22px;
+border-radius:999px;
 background:var(--green);
-transform:translateY(-3px);
+color:#fff;
+text-decoration:none;
+font-weight:700;
+font-size:14px;
+transition:.2s;
 }
-html{
-scroll-behavior:smooth;
+.join-discussion-btn:hover{
+background:var(--green-deep);
+transform:translateY(-2px);
 }
 </style>
 </head>
@@ -580,7 +571,16 @@ scroll-behavior:smooth;
 <div class="v">POC Center, KCBC Secretariat, Kochi</div>
 </div>
 </div>
-</section>
+</section><section class="announcements">
+<h2 class="display">Announcements</h2>
+<p class="sub">Updates from the organizing team.</p>
+<div class="announce-scroll-wrap">
+<div class="announce-list" id="announce-list">
+<div class="announce-loading" id="announce-loading">Loading announcements…</div>
+</div>
+</div>
+<p class="announce-hint">← Scroll for more announcements →</p>
+<div class="join-discussion-wrap"><a class="join-discussion-btn" href="#discussion">💬 Join Discussion</a></div></section>
 <p class="tagline">
 <span class="frau">"By unity, we grow stronger."</span><br/>
   Join us for a weekend of recovery, fellowship, unity, and service.
@@ -625,18 +625,9 @@ scroll-behavior:smooth;
 <div class="cta-note">Registration takes less than five minutes.</div>
 </section>
 <!-- announcements (read-only, posted from admin.html) -->
-<section class="announcements">
-<h2 class="display">Announcements</h2>
-<p class="sub">Updates from the organizing team.</p>
-<div class="announce-scroll-wrap">
-<div class="announce-list" id="announce-list">
-<div class="announce-loading" id="announce-loading">Loading announcements…</div>
-</div>
-</div>
-<p class="announce-hint">← Scroll for more announcements →</p>
-</section>
+
 <!-- discussion / message board -->
-<section class="discussion">
+<section class="discussion" id="discussion">
 <h2 class="display">Discussion Board</h2>
 <p class="sub">Questions, greetings, or carpool plans — post below. Visible to everyone.</p>
 <div class="disc-form">
@@ -1128,14 +1119,6 @@ const firebaseConfig = {
         });
     }
   }
-</script>
-
-<button aria-label="Back to Top" id="scrollTopBtn" title="Back to Top">↑</button>
-<script>
-const scrollBtn=document.getElementById('scrollTopBtn');
-scrollBtn.addEventListener('click',()=>{
-  window.scrollTo({top:0,behavior:'smooth'});
-});
 </script>
 </body>
 </html>
