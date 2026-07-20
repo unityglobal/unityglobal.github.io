@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>SA Convention 2026 India — By Unity Global Intergroup</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700;800&amp;family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,400&amp;display=swap" rel="stylesheet"/>
 <style>
   :root{
     --navy: #14315a;
@@ -476,213 +477,216 @@
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important; transition:none !important;}
   }
+
+
+/* Scroll to top button */
+#scrollTopBtn{
+position:fixed;
+bottom:24px;
+right:24px;
+width:52px;
+height:52px;
+border:none;
+border-radius:50%;
+background:var(--navy);
+color:#fff;
+font-size:22px;
+cursor:pointer;
+box-shadow:0 8px 24px rgba(0,0,0,.25);
+z-index:9999;
+transition:transform .2s ease,background .2s ease;
+}
+#scrollTopBtn:hover{
+background:var(--green);
+transform:translateY(-3px);
+}
+html{
+scroll-behavior:smooth;
+}
 </style>
 </head>
 <body>
 <div class="bg-texture"></div>
-
 <div class="announce-banner" id="announce-banner">
-  <span class="pin">📌</span><span id="announce-banner-text"></span>
-  <button class="close-x" id="announce-banner-close" aria-label="Dismiss">✕</button>
+<span class="pin">📌</span><span id="announce-banner-text"></span>
+<button aria-label="Dismiss" class="close-x" id="announce-banner-close">✕</button>
 </div>
-
 <header>
-  <span class="badge">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M2 12h20"/></svg>
+<span class="badge">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M12 2v20M2 12h20"></path></svg>
     Registration Open
   </span>
-
-  <svg class="lotus" viewBox="0 0 64 64" fill="none" stroke="var(--gold)" stroke-width="1.6">
-    <path d="M32 46 C32 46 20 40 20 26 C20 18 26 12 32 8 C38 12 44 18 44 26 C44 40 32 46 32 46Z"/>
-    <path d="M32 46 C32 46 12 44 6 30 C10 26 18 24 24 28"/>
-    <path d="M32 46 C32 46 52 44 58 30 C54 26 46 24 40 28"/>
-    <path d="M32 46 C32 46 24 42 22 32"/>
-    <path d="M32 46 C32 46 40 42 42 32"/>
-  </svg>
-
-  <div class="arc-rule"><span class="line"></span><span class="frau" style="font-style:italic">by unity global intergroup</span><span class="line"></span></div>
-
-  <div class="brandline">
-    <div class="sa-mark">SA</div>
-    <div class="divider-v"></div>
-    <div class="brand-right">
-      <div class="eyebrow">Convention</div>
-      <div class="year">2026</div>
-      <div class="country">— INDIA —</div>
-    </div>
-  </div>
-
-  <div class="presenter">Unity Global Intergroup</div>
+<svg class="lotus" fill="none" stroke="var(--gold)" stroke-width="1.6" viewbox="0 0 64 64">
+<path d="M32 46 C32 46 20 40 20 26 C20 18 26 12 32 8 C38 12 44 18 44 26 C44 40 32 46 32 46Z"></path>
+<path d="M32 46 C32 46 12 44 6 30 C10 26 18 24 24 28"></path>
+<path d="M32 46 C32 46 52 44 58 30 C54 26 46 24 40 28"></path>
+<path d="M32 46 C32 46 24 42 22 32"></path>
+<path d="M32 46 C32 46 40 42 42 32"></path>
+</svg>
+<div class="arc-rule"><span class="line"></span><span class="frau" style="font-style:italic">by unity global intergroup</span><span class="line"></span></div>
+<div class="brandline">
+<div class="sa-mark">SA</div>
+<div class="divider-v"></div>
+<div class="brand-right">
+<div class="eyebrow">Convention</div>
+<div class="year">2026</div>
+<div class="country">— INDIA —</div>
+</div>
+</div>
+<div class="presenter">Unity Global Intergroup</div>
 </header>
-
 <!-- countdown + registered signature block -->
 <section class="stat-belt">
-  <div class="stat-belt-inner">
-    <div class="belt-label">Countdown to Convention · 27 November 2026</div>
-    <div class="countdown-row" id="countdown">
-      <div class="count-unit"><div class="count-num" id="cd-days">--</div><div class="count-sub">Days</div></div>
-      <div class="count-colon">:</div>
-      <div class="count-unit"><div class="count-num" id="cd-hours">--</div><div class="count-sub">Hours</div></div>
-      <div class="count-colon">:</div>
-      <div class="count-unit"><div class="count-num" id="cd-mins">--</div><div class="count-sub">Mins</div></div>
-      <div class="count-colon">:</div>
-      <div class="count-unit"><div class="count-num" id="cd-secs">--</div><div class="count-sub">Secs</div></div>
-    </div>
-    <div class="divider-h"></div>
-    <div class="reg-row">
-      <div class="reg-item">
-        <div class="reg-num"><span id="reg-count">0</span><span class="plus">+</span></div>
-        <div class="reg-sub">Total Registered</div>
-      </div>
-      <div class="reg-item">
-        <div class="reg-num">3</div>
-        <div class="reg-sub">Days of Fellowship</div>
-      </div>
-      <div class="reg-item">
-        <div class="reg-num">Nov 27–29</div>
-        <div class="reg-sub">2026</div>
-      </div>
-    </div>
-  </div>
+<div class="stat-belt-inner">
+<div class="belt-label">Countdown to Convention · 27 November 2026</div>
+<div class="countdown-row" id="countdown">
+<div class="count-unit"><div class="count-num" id="cd-days">--</div><div class="count-sub">Days</div></div>
+<div class="count-colon">:</div>
+<div class="count-unit"><div class="count-num" id="cd-hours">--</div><div class="count-sub">Hours</div></div>
+<div class="count-colon">:</div>
+<div class="count-unit"><div class="count-num" id="cd-mins">--</div><div class="count-sub">Mins</div></div>
+<div class="count-colon">:</div>
+<div class="count-unit"><div class="count-num" id="cd-secs">--</div><div class="count-sub">Secs</div></div>
+</div>
+<div class="divider-h"></div>
+<div class="reg-row">
+<div class="reg-item">
+<div class="reg-num"><span id="reg-count">0</span><span class="plus">+</span></div>
+<div class="reg-sub">Total Registered</div>
+</div>
+<div class="reg-item">
+<div class="reg-num">3</div>
+<div class="reg-sub">Days of Fellowship</div>
+</div>
+<div class="reg-item">
+<div class="reg-num">Nov 27–29</div>
+<div class="reg-sub">2026</div>
+</div>
+</div>
+</div>
 </section>
-
 <!-- date / venue -->
 <section class="info-band">
-  <div class="info-band-inner">
-    <div class="info-piece">
-      <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
-      <div class="k">Dates</div>
-      <div class="v">November 27–29, 2026</div>
-    </div>
-    <div class="info-sep"></div>
-    <div class="info-piece">
-      <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.4 7-12a7 7 0 1 0-14 0c0 5.6 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
-      <div class="k">Venue</div>
-      <div class="v">POC Center, KCBC Secretariat, Kochi</div>
-    </div>
-  </div>
+<div class="info-band-inner">
+<div class="info-piece">
+<svg class="info-icon" fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><rect height="16" rx="2" width="18" x="3" y="5"></rect><path d="M3 9h18M8 3v4M16 3v4"></path></svg>
+<div class="k">Dates</div>
+<div class="v">November 27–29, 2026</div>
+</div>
+<div class="info-sep"></div>
+<div class="info-piece">
+<svg class="info-icon" fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M12 21s7-6.4 7-12a7 7 0 1 0-14 0c0 5.6 7 12 7 12Z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
+<div class="k">Venue</div>
+<div class="v">POC Center, KCBC Secretariat, Kochi</div>
+</div>
+</div>
 </section>
-
 <p class="tagline">
-  <span class="frau">"By unity, we grow stronger."</span><br>
+<span class="frau">"By unity, we grow stronger."</span><br/>
   Join us for a weekend of recovery, fellowship, unity, and service.
 </p>
-
 <!-- who can join -->
 <section class="cats">
-  <div class="cat-card c1">
-    <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-4 3-6.5 7-6.5S19 16 19 20"/></svg></div>
-    <div class="cat-title">Individual<br>Registration</div>
-  </div>
-  <div class="cat-card c2">
-    <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.6"/><path d="M3 20c0-3.5 2.6-6 6-6s6 2.5 6 6M14 15c2.8 0 5 2 5 5"/></svg></div>
-    <div class="cat-title">Spouses<br>(S-Anon)</div>
-  </div>
-  <div class="cat-card c3">
-    <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20s-7-4.4-9.2-9C1.4 7.6 3 4.5 6.4 4.2 8.7 4 10.7 5.2 12 7c1.3-1.8 3.3-3 5.6-2.8 3.4.3 5 3.4 3.6 6.8C19 15.6 12 20 12 20Z"/></svg></div>
-    <div class="cat-title">Financial<br>Aid</div>
-  </div>
-  <div class="cat-card c4">
-    <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.5 4 5.6 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.6-4-9s1.4-6.5 4-9Z"/></svg></div>
-    <div class="cat-title">International<br>Participants</div>
-  </div>
+<div class="cat-card c1">
+<div class="cat-icon"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><circle cx="12" cy="8" r="3.4"></circle><path d="M5 20c0-4 3-6.5 7-6.5S19 16 19 20"></path></svg></div>
+<div class="cat-title">Individual<br/>Registration</div>
+</div>
+<div class="cat-card c2">
+<div class="cat-icon"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><circle cx="9" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.6"></circle><path d="M3 20c0-3.5 2.6-6 6-6s6 2.5 6 6M14 15c2.8 0 5 2 5 5"></path></svg></div>
+<div class="cat-title">Spouses<br/>(S-Anon)</div>
+</div>
+<div class="cat-card c3">
+<div class="cat-icon"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><path d="M12 20s-7-4.4-9.2-9C1.4 7.6 3 4.5 6.4 4.2 8.7 4 10.7 5.2 12 7c1.3-1.8 3.3-3 5.6-2.8 3.4.3 5 3.4 3.6 6.8C19 15.6 12 20 12 20Z"></path></svg></div>
+<div class="cat-title">Financial<br/>Aid</div>
+</div>
+<div class="cat-card c4">
+<div class="cat-icon"><svg fill="none" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.6 2.5 4 5.6 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.6-4-9s1.4-6.5 4-9Z"></path></svg></div>
+<div class="cat-title">International<br/>Participants</div>
+</div>
 </section>
-
 <!-- about -->
 <section class="about">
-  <h2 class="display">About the Convention</h2>
-  <p>
+<h2 class="display">About the Convention</h2>
+<p>
     The SA Convention 2026 India brings together members, spouses, and friends in recovery
     from across the country and beyond for three days of fellowship, workshops, sharing, and
     service — hosted at the POC Center, KCBC Secretariat in Kochi. Financial aid is available
     for those who need support to attend, and international participants are warmly welcome.
   </p>
 </section>
-
 <!-- register -->
 <section class="cta-wrap">
-  <a class="cta-btn" href="https://forms.gle/eWVE1vPYD1267ZB57" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.5 4 5.6 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.6-4-9s1.4-6.5 4-9Z"/></svg>
+<a class="cta-btn" href="https://forms.gle/eWVE1vPYD1267ZB57" rel="noopener" target="_blank">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c2.6 2.5 4 5.6 4 9s-1.4 6.5-4 9c-2.6-2.5-4-5.6-4-9s1.4-6.5 4-9Z"></path></svg>
     Register Here
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-  </a>
-  <div class="cta-link-text">https://forms.gle/eWVE1vPYD1267ZB57</div>
-  <div class="cta-note">Registration takes less than five minutes.</div>
+    <svg fill="none" stroke="currentColor" stroke-width="2.4" viewbox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+</a>
+<div class="cta-link-text">https://forms.gle/eWVE1vPYD1267ZB57</div>
+<div class="cta-note">Registration takes less than five minutes.</div>
 </section>
-
 <!-- announcements (read-only, posted from admin.html) -->
 <section class="announcements">
-  <h2 class="display">Announcements</h2>
-  <p class="sub">Updates from the organizing team.</p>
-  <div class="announce-scroll-wrap">
-    <div class="announce-list" id="announce-list">
-      <div class="announce-loading" id="announce-loading">Loading announcements…</div>
-    </div>
-  </div>
-  <p class="announce-hint">← Scroll for more announcements →</p>
+<h2 class="display">Announcements</h2>
+<p class="sub">Updates from the organizing team.</p>
+<div class="announce-scroll-wrap">
+<div class="announce-list" id="announce-list">
+<div class="announce-loading" id="announce-loading">Loading announcements…</div>
+</div>
+</div>
+<p class="announce-hint">← Scroll for more announcements →</p>
 </section>
-
 <!-- discussion / message board -->
 <section class="discussion">
-  <h2 class="display">Discussion Board</h2>
-  <p class="sub">Questions, greetings, or carpool plans — post below. Visible to everyone.</p>
-
-  <div class="disc-form">
-    <div class="disc-form-row">
-      <input type="text" id="disc-name" class="disc-name" placeholder="Your name" maxlength="60">
-    </div>
-    <div class="disc-form-row">
-      <textarea id="disc-message" placeholder="Write a message…" maxlength="500"></textarea>
-    </div>
-    <div class="disc-submit-row">
-      <span class="disc-char-count" id="disc-char-count">0 / 500</span>
-      <button class="disc-submit" id="disc-submit-btn">Post Message</button>
-    </div>
-    <div class="disc-status" id="disc-status"></div>
-  </div>
-
-  <div class="disc-list" id="disc-list">
-    <div class="disc-loading" id="disc-loading">Loading discussion…</div>
-  </div>
-
-  <div class="disc-pagination" id="disc-pagination" style="display:none;">
-    <button class="disc-page-btn" id="disc-prev-btn">← Newer</button>
-    <span class="disc-page-info" id="disc-page-info">Page 1 of 1</span>
-    <button class="disc-page-btn" id="disc-next-btn">Older →</button>
-  </div>
+<h2 class="display">Discussion Board</h2>
+<p class="sub">Questions, greetings, or carpool plans — post below. Visible to everyone.</p>
+<div class="disc-form">
+<div class="disc-form-row">
+<input class="disc-name" id="disc-name" maxlength="60" placeholder="Your name" type="text"/>
+</div>
+<div class="disc-form-row">
+<textarea id="disc-message" maxlength="500" placeholder="Write a message…"></textarea>
+</div>
+<div class="disc-submit-row">
+<span class="disc-char-count" id="disc-char-count">0 / 500</span>
+<button class="disc-submit" id="disc-submit-btn">Post Message</button>
+</div>
+<div class="disc-status" id="disc-status"></div>
+</div>
+<div class="disc-list" id="disc-list">
+<div class="disc-loading" id="disc-loading">Loading discussion…</div>
+</div>
+<div class="disc-pagination" id="disc-pagination" style="display:none;">
+<button class="disc-page-btn" id="disc-prev-btn">← Newer</button>
+<span class="disc-page-info" id="disc-page-info">Page 1 of 1</span>
+<button class="disc-page-btn" id="disc-next-btn">Older →</button>
+</div>
 </section>
-
 <footer>
-  <svg class="wave" viewBox="0 0 400 60" preserveAspectRatio="none"><path d="M0 40 C80 10 160 55 240 30 C300 12 350 40 400 25 L400 60 L0 60 Z" fill="var(--navy-deep)"/></svg>
-
-  <svg class="footer-lotus" id="footer-lotus-trigger" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6">
-    <path d="M32 46 C32 46 20 40 20 26 C20 18 26 12 32 8 C38 12 44 18 44 26 C44 40 32 46 32 46Z"/>
-    <path d="M32 46 C32 46 12 44 6 30 C10 26 18 24 24 28"/>
-    <path d="M32 46 C32 46 52 44 58 30 C54 26 46 24 40 28"/>
-  </svg>
-
-  <div class="contact-block">
-    <div class="contact-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 2 2.3Z"/></svg>
-      <a href="tel:+919182874559">+91 91828 74559</a>
-    </div>
-    <div class="contact-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.4 7-12a7 7 0 1 0-14 0c0 5.6 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+<svg class="wave" preserveaspectratio="none" viewbox="0 0 400 60"><path d="M0 40 C80 10 160 55 240 30 C300 12 350 40 400 25 L400 60 L0 60 Z" fill="var(--navy-deep)"></path></svg>
+<svg class="footer-lotus" fill="none" id="footer-lotus-trigger" stroke="currentColor" stroke-width="1.6" viewbox="0 0 64 64">
+<path d="M32 46 C32 46 20 40 20 26 C20 18 26 12 32 8 C38 12 44 18 44 26 C44 40 32 46 32 46Z"></path>
+<path d="M32 46 C32 46 12 44 6 30 C10 26 18 24 24 28"></path>
+<path d="M32 46 C32 46 52 44 58 30 C54 26 46 24 40 28"></path>
+</svg>
+<div class="contact-block">
+<div class="contact-item">
+<svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 2 2.3Z"></path></svg>
+<a href="tel:+919182874559">+91 91828 74559</a>
+</div>
+<div class="contact-item">
+<svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 21s7-6.4 7-12a7 7 0 1 0-14 0c0 5.6 7 12 7 12Z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
       POC Center, KCBC Secretariat, Kochi
     </div>
-    <div class="contact-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+<div class="contact-item">
+<svg fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><rect height="16" rx="2" width="18" x="3" y="5"></rect><path d="M3 9h18M8 3v4M16 3v4"></path></svg>
       November 27–29, 2026
     </div>
-  </div>
-
-  <div class="footer-motto">
-    <span>Together in Unity</span><span class="dot">•</span><span>Strength in Recovery</span><span class="dot">•</span><span>Service in Action</span>
-  </div>
-
-  <div class="footer-fine">SA Convention 2026 India · Hosted by Unity Global Intergroup</div>
+</div>
+<div class="footer-motto">
+<span>Together in Unity</span><span class="dot">•</span><span>Strength in Recovery</span><span class="dot">•</span><span>Service in Action</span>
+</div>
+<div class="footer-fine">SA Convention 2026 India · Hosted by Unity Global Intergroup</div>
 </footer>
-
 <!-- ============================================================
      HIDDEN ADMIN PANEL
      Not linked anywhere. Opens only when the small lotus icon in
@@ -690,45 +694,39 @@
      Firebase Authentication login (not just a page-side check).
      ============================================================ -->
 <div class="admin-modal-overlay" id="admin-overlay">
-  <div class="admin-modal">
-
-    <div id="admin-login-view">
-      <div class="admin-top-row">
-        <h3>Admin Login</h3>
-        <button class="admin-close-btn" id="admin-close-1">✕ Close</button>
-      </div>
-      <p class="sub">Sign in to post announcements.</p>
-      <label for="admin-email">Email</label>
-      <input type="email" id="admin-email" autocomplete="username">
-      <label for="admin-password">Password</label>
-      <input type="password" id="admin-password" autocomplete="current-password">
-      <button id="admin-login-btn">Sign In</button>
-      <div class="msg" id="admin-login-msg"></div>
-    </div>
-
-    <div id="admin-panel-view" class="hidden">
-      <div class="admin-top-row">
-        <h3>Post Announcement</h3>
-        <button class="admin-logout-btn" id="admin-logout-btn">Sign Out</button>
-      </div>
-      <label for="admin-title">Title</label>
-      <input type="text" id="admin-title" maxlength="80" placeholder="e.g. Registration deadline extended">
-      <label for="admin-body">Message</label>
-      <textarea id="admin-body" maxlength="600" placeholder="Write the announcement…"></textarea>
-      <button id="admin-post-btn">Post Announcement</button>
-      <div class="msg" id="admin-post-msg"></div>
-
-      <div class="admin-divider"></div>
-      <h3 style="font-size:15px;">Existing Announcements</h3>
-      <div id="admin-existing-list"></div>
-
-      <div class="admin-divider"></div>
-      <button class="admin-close-btn" id="admin-close-2" style="width:100%;">✕ Close Panel</button>
-    </div>
-
-  </div>
+<div class="admin-modal">
+<div id="admin-login-view">
+<div class="admin-top-row">
+<h3>Admin Login</h3>
+<button class="admin-close-btn" id="admin-close-1">✕ Close</button>
 </div>
-
+<p class="sub">Sign in to post announcements.</p>
+<label for="admin-email">Email</label>
+<input autocomplete="username" id="admin-email" type="email"/>
+<label for="admin-password">Password</label>
+<input autocomplete="current-password" id="admin-password" type="password"/>
+<button id="admin-login-btn">Sign In</button>
+<div class="msg" id="admin-login-msg"></div>
+</div>
+<div class="hidden" id="admin-panel-view">
+<div class="admin-top-row">
+<h3>Post Announcement</h3>
+<button class="admin-logout-btn" id="admin-logout-btn">Sign Out</button>
+</div>
+<label for="admin-title">Title</label>
+<input id="admin-title" maxlength="80" placeholder="e.g. Registration deadline extended" type="text"/>
+<label for="admin-body">Message</label>
+<textarea id="admin-body" maxlength="600" placeholder="Write the announcement…"></textarea>
+<button id="admin-post-btn">Post Announcement</button>
+<div class="msg" id="admin-post-msg"></div>
+<div class="admin-divider"></div>
+<h3 style="font-size:15px;">Existing Announcements</h3>
+<div id="admin-existing-list"></div>
+<div class="admin-divider"></div>
+<button class="admin-close-btn" id="admin-close-2" style="width:100%;">✕ Close Panel</button>
+</div>
+</div>
+</div>
 <script>
   // ---- Total registered (update this number as registrations come in) ----
   const TOTAL_REGISTERED = 0;
@@ -785,7 +783,6 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 </script>
-
 <!-- ============================================================
      DISCUSSION BOARD — powered by Firebase Firestore (free tier)
      SETUP REQUIRED — see instructions in the chat / README.
@@ -1133,5 +1130,12 @@ const firebaseConfig = {
   }
 </script>
 
+<button aria-label="Back to Top" id="scrollTopBtn" title="Back to Top">↑</button>
+<script>
+const scrollBtn=document.getElementById('scrollTopBtn');
+scrollBtn.addEventListener('click',()=>{
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+</script>
 </body>
 </html>
