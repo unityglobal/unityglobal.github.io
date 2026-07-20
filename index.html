@@ -727,7 +727,7 @@ transform:translateY(-2px);
 </div>
 </div>
 <script>
-  // ---- Countdown to Nov 27, 2026, 00:00 local time ----
+// ---- Countdown to Nov 27, 2026, 00:00 local time ----
   const CONVENTION_DATE = new Date('2026-11-27T00:00:00');
 
   function updateCountdown(){
@@ -872,17 +872,19 @@ const firebaseConfig = {
     const settingsRef = db.collection('site-settings').doc('convention');
 
     settingsRef.onSnapshot((doc)=>{
-      const count = (doc.exists && doc.data().registeredCount) ? doc.data().registeredCount : 0;
+      const data = doc.data() || {};
+      const count = Number(data.registeredCount || 0);
       document.getElementById('reg-count').textContent = count;
       const fld = document.getElementById('admin-registered-count');
-      if(fld) fld.value = count;
+      if (fld) fld.value = count;
     });
 
     document.getElementById('admin-save-registered-btn').addEventListener('click', async ()=>{
-      const v = parseInt(document.getElementById('admin-registered-count').value) || 0;
+      const v = parseInt(document.getElementById('admin-registered-count').value,10) || 0;
       await settingsRef.set({registeredCount:v},{merge:true});
-      document.getElementById('admin-settings-msg').textContent='Registered count updated.';
-      document.getElementById('admin-settings-msg').className='msg ok';
+      const msg=document.getElementById('admin-settings-msg');
+      msg.textContent='Registered count updated.';
+      msg.className='msg ok';
     });
 
     const commentsRef = db.collection('sa-convention-2026-comments');
@@ -1123,7 +1125,6 @@ const firebaseConfig = {
         });
     }
   }
-
 </script>
 </body>
 </html>
