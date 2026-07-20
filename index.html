@@ -494,41 +494,6 @@ transition:.2s;
 background:var(--green-deep);
 transform:translateY(-2px);
 }
-
-
-/* Scroll To Top */
-#scrollTopBtn{
-position:fixed;
-bottom:25px;
-right:25px;
-width:52px;
-height:52px;
-border:none;
-border-radius:50%;
-background:var(--navy);
-color:#fff;
-font-size:24px;
-cursor:pointer;
-display:flex;
-align-items:center;
-justify-content:center;
-box-shadow:0 8px 20px rgba(0,0,0,.25);
-opacity:0;
-visibility:hidden;
-transform:translateY(20px);
-transition:.3s;
-z-index:9999;
-}
-#scrollTopBtn.show{
-opacity:1;
-visibility:visible;
-transform:translateY(0);
-}
-#scrollTopBtn:hover{
-background:var(--green);
-transform:translateY(-3px);
-}
-
 </style>
 </head>
 <body>
@@ -560,25 +525,6 @@ transform:translateY(-3px);
 </div>
 </div>
 <div class="presenter">Unity Global Intergroup</div>
-
-<meta property="og:type" content="website">
-
-<meta property="og:title" content="SA Convention 2026 India">
-<meta property="og:description" content="Registration Open • November 27–29, 2026 • POC Center, Kochi">
-
-<meta property="og:url" content="https://unityglobal.github.io/">
-
-<meta property="og:image" content="https://unityglobal.github.io/images/cover.jpg">
-<meta property="og:image:secure_url" content="https://unityglobal.github.io/images/cover.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="SA Convention 2026 India Poster">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SA Convention 2026 India">
-<meta name="twitter:description" content="Registration Open • November 27–29, 2026 • Kochi">
-<meta name="twitter:image" content="https://unityglobal.github.io/images/cover.jpg">
-  
 </header>
 <!-- countdown + registered signature block -->
 <section class="stat-belt">
@@ -764,6 +710,14 @@ transform:translateY(-3px);
 <textarea id="admin-body" maxlength="600" placeholder="Write the announcement…"></textarea>
 <button id="admin-post-btn">Post Announcement</button>
 <div class="msg" id="admin-post-msg"></div>
+
+<div class="admin-divider"></div>
+<h3 style="font-size:15px;">Convention Settings</h3>
+<label for="admin-registered-count">Total Registered</label>
+<input id="admin-registered-count" type="number" min="0" placeholder="0"/>
+<button id="admin-save-registered-btn">Update Registered Count</button>
+<div class="msg" id="admin-settings-msg"></div>
+
 <div class="admin-divider"></div>
 <h3 style="font-size:15px;">Existing Announcements</h3>
 <div id="admin-existing-list"></div>
@@ -1173,20 +1127,23 @@ const firebaseConfig = {
         });
     }
   }
-</script>
 
-<button id="scrollTopBtn" aria-label="Scroll to top">↑</button>
+// Live Registered Count Settings
+const settingsRef = db.collection('site-settings').doc('convention');
 
-<script>
-const scrollTopBtn=document.getElementById('scrollTopBtn');
-window.addEventListener('scroll',()=>{
- if(window.scrollY>400){scrollTopBtn.classList.add('show');}
- else{scrollTopBtn.classList.remove('show');}
+settingsRef.onSnapshot((doc)=>{
+  const count=(doc.exists && doc.data().registeredCount)||0;
+  document.getElementById('reg-count').textContent=count;
+  const fld=document.getElementById('admin-registered-count');
+  if(fld) fld.value=count;
 });
-scrollTopBtn.addEventListener('click',()=>{
- window.scrollTo({top:0,behavior:'smooth'});
-});
-</script>
 
+document.getElementById('admin-save-registered-btn')?.addEventListener('click', async ()=>{
+  const v=parseInt(document.getElementById('admin-registered-count').value)||0;
+  await settingsRef.set({registeredCount:v},{merge:true});
+  document.getElementById('admin-settings-msg').textContent='Registered count updated.';
+});
+
+</script>
 </body>
 </html>
