@@ -367,25 +367,41 @@
 
   /* ---------- announcements section ---------- */
   .announcements{
-    max-width:760px; margin:56px auto 0; padding:0 24px;
+    max-width:980px; margin:56px auto 0; padding:0 24px;
   }
   .announcements h2{
     text-align:center; font-size:clamp(24px,4vw,32px); color:var(--navy); margin-bottom:6px;
   }
   .announcements .sub{
-    text-align:center; color:var(--ink-soft); font-size:14.5px; margin-bottom:26px;
+    text-align:center; color:var(--ink-soft); font-size:14.5px; margin-bottom:22px;
   }
-  .announce-list{display:flex; flex-direction:column; gap:14px;}
+  .announce-scroll-wrap{position:relative;}
+  .announce-list{
+    display:flex; flex-direction:row; gap:16px;
+    overflow-x:auto; padding:4px 4px 14px;
+    scroll-snap-type:x proximity;
+    scrollbar-width:thin; scrollbar-color:var(--gold) transparent;
+  }
+  .announce-list::-webkit-scrollbar{height:6px;}
+  .announce-list::-webkit-scrollbar-thumb{background:var(--gold); border-radius:6px;}
+  .announce-list::-webkit-scrollbar-track{background:transparent;}
   .announce-item{
+    flex:0 0 auto; width:280px; scroll-snap-align:start;
     background:var(--paper); border:1px solid var(--line); border-left:4px solid var(--gold);
     border-radius:10px; padding:16px 18px;
   }
-  .announce-item-head{display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:6px;}
+  .announce-item-head{display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:6px; flex-wrap:wrap;}
   .announce-item-title{font-weight:700; color:var(--navy); font-size:15px;}
   .announce-item-time{font-size:11.5px; color:var(--ink-soft); white-space:nowrap;}
   .announce-item-body{font-size:14.5px; color:var(--ink); line-height:1.6; white-space:pre-wrap; word-wrap:break-word;}
   .announce-empty{text-align:center; color:var(--ink-soft); font-size:14px; padding:20px 0;}
   .announce-loading{text-align:center; color:var(--ink-soft); font-size:14px; padding:20px 0;}
+  .announce-hint{
+    text-align:center; font-size:11.5px; color:var(--ink-soft); margin-top:2px;
+  }
+  @media (max-width:600px){
+    .announce-item{width:240px;}
+  }
 
   .disc-loading{text-align:center; color:var(--ink-soft); font-size:14px; padding:20px 0;}
 
@@ -598,9 +614,12 @@
 <section class="announcements">
   <h2 class="display">Announcements</h2>
   <p class="sub">Updates from the organizing team.</p>
-  <div class="announce-list" id="announce-list">
-    <div class="announce-loading" id="announce-loading">Loading announcements…</div>
+  <div class="announce-scroll-wrap">
+    <div class="announce-list" id="announce-list">
+      <div class="announce-loading" id="announce-loading">Loading announcements…</div>
+    </div>
   </div>
+  <p class="announce-hint">← Scroll for more announcements →</p>
 </section>
 
 <!-- discussion / message board -->
@@ -780,14 +799,13 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script>
   // ---- 1. PASTE YOUR FIREBASE CONFIG HERE ----
-  const firebaseConfig = {
-  apiKey: "AIzaSyCviuPXa4Hkga6QvVA3BdGsTcgJxpmxOUk",
-  authDomain: "unityglobal-993ef.firebaseapp.com",
-  projectId: "unityglobal-993ef",
-  storageBucket: "unityglobal-993ef.firebasestorage.app",
-  messagingSenderId: "251402530979",
-  appId: "1:251402530979:web:2b40d2fce141790feccf16",
-  measurementId: "G-8GMGCGQ26P"
+const firebaseConfig = {
+  apiKey: "AIzaSyARXpR4s6v9ZWYMpeGhJLjij6w9crPcDJQ",
+  authDomain: "unityglobal-1327f.firebaseapp.com",
+  projectId: "unityglobal-1327f",
+  storageBucket: "unityglobal-1327f.firebasestorage.app",
+  messagingSenderId: "613543856148",
+  appId: "1:613543856148:web:bc0c0fe860c204348fff01"
 };
 
   const FIREBASE_CONFIGURED = firebaseConfig.apiKey !== "YOUR_API_KEY";
