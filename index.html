@@ -348,6 +348,19 @@
   .disc-item-msg{font-size:14.5px; color:var(--ink); line-height:1.6; white-space:pre-wrap; word-wrap:break-word;}
   .disc-loading{text-align:center; color:var(--ink-soft); font-size:14px; padding:20px 0;}
 
+  .disc-pagination{
+    display:flex; align-items:center; justify-content:center; gap:16px;
+    margin-top:22px;
+  }
+  .disc-page-btn{
+    background:var(--paper); border:1px solid var(--line); color:var(--navy);
+    border-radius:9px; padding:8px 16px; font-size:13px; font-weight:700;
+    cursor:pointer; transition:background .2s ease, transform .2s ease;
+  }
+  .disc-page-btn:hover:not(:disabled){background:var(--cream-2); transform:translateY(-1px);}
+  .disc-page-btn:disabled{opacity:.4; cursor:not-allowed; transform:none;}
+  .disc-page-info{font-size:12.5px; color:var(--ink-soft); letter-spacing:0.04em;}
+
   @keyframes settle{from{opacity:0; transform:translateY(-8px);} to{opacity:1; transform:translateY(0);}}
   @keyframes bloom{from{opacity:0; transform:scale(0.6) rotate(-6deg);} to{opacity:1; transform:scale(1) rotate(0);}}
 
@@ -505,6 +518,12 @@
   <div class="disc-list" id="disc-list">
     <div class="disc-loading" id="disc-loading">Loading discussion…</div>
   </div>
+
+  <div class="disc-pagination" id="disc-pagination" style="display:none;">
+    <button class="disc-page-btn" id="disc-prev-btn">← Newer</button>
+    <span class="disc-page-info" id="disc-page-info">Page 1 of 1</span>
+    <button class="disc-page-btn" id="disc-next-btn">Older →</button>
+  </div>
 </section>
 
 <footer>
@@ -607,8 +626,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
   // ---- 1. PASTE YOUR FIREBASE CONFIG HERE ----
-   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+ const firebaseConfig = {
   apiKey: "AIzaSyCviuPXa4Hkga6QvVA3BdGsTcgJxpmxOUk",
   authDomain: "unityglobal-993ef.firebaseapp.com",
   projectId: "unityglobal-993ef",
@@ -627,6 +645,15 @@ const firebaseConfig = {
   const statusEl = document.getElementById('disc-status');
   const listEl = document.getElementById('disc-list');
   const loadingEl = document.getElementById('disc-loading');
+  const paginationEl = document.getElementById('disc-pagination');
+  const prevBtn = document.getElementById('disc-prev-btn');
+  const nextBtn = document.getElementById('disc-next-btn');
+  const pageInfoEl = document.getElementById('disc-page-info');
+
+  const PAGE_SIZE = 8;
+  let allMessages = [];
+  let currentPage = 1;
+  let knownDocCount = 0; // used to detect new posts arriving and snap back to page 1
 
   msgInput.addEventListener('input', () => {
     charCount.textContent = `${msgInput.value.length} / 500`;
@@ -650,12 +677,22 @@ const firebaseConfig = {
     return date.toLocaleDateString();
   }
 
-  function renderMessages(messages){
-    if (messages.length === 0){
+  function renderPage(){
+    const total = allMessages.length;
+
+    if (total === 0){
       listEl.innerHTML = '<div class="disc-empty">No messages yet — be the first to say hello.</div>';
+      paginationEl.style.display = 'none';
       return;
     }
-    listEl.innerHTML = messages.map(m => `
+
+    const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+    currentPage = Math.min(currentPage, totalPages);
+
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const pageItems = allMessages.slice(start, start + PAGE_SIZE);
+
+    listEl.innerHTML = pageItems.map(m => `
       <div class="disc-item">
         <div class="disc-item-head">
           <span class="disc-item-name">${escapeHtml(m.name)}</span>
@@ -664,7 +701,15 @@ const firebaseConfig = {
         <div class="disc-item-msg">${escapeHtml(m.message)}</div>
       </div>
     `).join('');
+
+    paginationEl.style.display = totalPages > 1 ? 'flex' : 'none';
+    pageInfoEl.textContent = `Page ${currentPage} of ${totalPages}`;
+    prevBtn.disabled = currentPage <= 1;
+    nextBtn.disabled = currentPage >= totalPages;
   }
+
+  prevBtn.addEventListener('click', () => { currentPage--; renderPage(); listEl.scrollIntoView({behavior:'smooth', block:'start'}); });
+  nextBtn.addEventListener('click', () => { currentPage++; renderPage(); listEl.scrollIntoView({behavior:'smooth', block:'start'}); });
 
   if (!FIREBASE_CONFIGURED){
     // No backend configured yet — show setup notice instead of crashing.
@@ -677,6 +722,8 @@ const firebaseConfig = {
     const db = firebase.firestore();
     const commentsRef = db.collection('sa-convention-2026-comments');
 
+    let firstLoad = true;
+
     commentsRef.orderBy('createdAt', 'desc').limit(200)
       .onSnapshot((snapshot) => {
         const messages = snapshot.docs.map(doc => {
@@ -684,7 +731,16 @@ const firebaseConfig = {
           const created = data.createdAt ? data.createdAt.toDate() : new Date();
           return { name: data.name || 'Anonymous', message: data.message || '', time: timeAgo(created) };
         });
-        renderMessages(messages);
+
+        // Snap back to page 1 when a new message arrives (but not on first load,
+        // and not if the person has paged deeper into older messages already).
+        if (!firstLoad && messages.length > allMessages.length){
+          currentPage = 1;
+        }
+        firstLoad = false;
+
+        allMessages = messages;
+        renderPage();
       }, (err) => {
         loadingEl.textContent = 'Could not load messages — check Firestore rules and connection.';
         console.error(err);
@@ -713,6 +769,7 @@ const firebaseConfig = {
         charCount.textContent = '0 / 500';
         statusEl.textContent = 'Posted!';
         statusEl.classList.add('ok');
+        currentPage = 1;
       } catch (err) {
         statusEl.textContent = 'Could not post — please try again.';
         statusEl.classList.add('error');
