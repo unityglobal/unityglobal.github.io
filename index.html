@@ -727,26 +727,6 @@ transform:translateY(-2px);
 </div>
 </div>
 <script>
-  // ---- Total registered (update this number as registrations come in) ----
-  const TOTAL_REGISTERED = 0;
-
-  // Animate the registered count on load
-  (function(){
-    const el = document.getElementById('reg-count');
-    const target = TOTAL_REGISTERED;
-    if(target === 0){ el.textContent = '0'; return; }
-    let start = null;
-    const duration = 1100;
-    function step(ts){
-      if(!start) start = ts;
-      const progress = Math.min((ts - start) / duration, 1);
-      el.textContent = Math.floor(progress * target);
-      if(progress < 1) requestAnimationFrame(step);
-      else el.textContent = target;
-    }
-    requestAnimationFrame(step);
-  })();
-
   // ---- Countdown to Nov 27, 2026, 00:00 local time ----
   const CONVENTION_DATE = new Date('2026-11-27T00:00:00');
 
@@ -889,6 +869,22 @@ const firebaseConfig = {
   } else {
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
+    const settingsRef = db.collection('site-settings').doc('convention');
+
+    settingsRef.onSnapshot((doc)=>{
+      const count = (doc.exists && doc.data().registeredCount) ? doc.data().registeredCount : 0;
+      document.getElementById('reg-count').textContent = count;
+      const fld = document.getElementById('admin-registered-count');
+      if(fld) fld.value = count;
+    });
+
+    document.getElementById('admin-save-registered-btn').addEventListener('click', async ()=>{
+      const v = parseInt(document.getElementById('admin-registered-count').value) || 0;
+      await settingsRef.set({registeredCount:v},{merge:true});
+      document.getElementById('admin-settings-msg').textContent='Registered count updated.';
+      document.getElementById('admin-settings-msg').className='msg ok';
+    });
+
     const commentsRef = db.collection('sa-convention-2026-comments');
     const announcementsRef = db.collection('sa-convention-2026-announcements');
 
@@ -1127,22 +1123,6 @@ const firebaseConfig = {
         });
     }
   }
-
-// Live Registered Count Settings
-const settingsRef = db.collection('site-settings').doc('convention');
-
-settingsRef.onSnapshot((doc)=>{
-  const count=(doc.exists && doc.data().registeredCount)||0;
-  document.getElementById('reg-count').textContent=count;
-  const fld=document.getElementById('admin-registered-count');
-  if(fld) fld.value=count;
-});
-
-document.getElementById('admin-save-registered-btn')?.addEventListener('click', async ()=>{
-  const v=parseInt(document.getElementById('admin-registered-count').value)||0;
-  await settingsRef.set({registeredCount:v},{merge:true});
-  document.getElementById('admin-settings-msg').textContent='Registered count updated.';
-});
 
 </script>
 </body>
