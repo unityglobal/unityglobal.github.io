@@ -189,31 +189,31 @@
   }
 
   /* ---------- info band: dates / venue ---------- */
-  .info-band{
-    max-width:900px; margin:34px auto 0; padding:0 20px;
-  }
-  .info-band-inner{
+ .info-band-inner{
     background:var(--cream-2);
     border-radius:18px;
     padding:26px 22px;
-    display:flex; flex-wrap:wrap; justify-content:center; gap:28px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
     text-align:center;
-  }
-  .info-piece{display:flex; flex-direction:column; align-items:center; gap:6px; min-width:170px;}
-  .info-icon{width:34px; height:34px; color:var(--green-deep);}
-  .info-piece .k{
-    text-transform:uppercase; font-size:11.5px; letter-spacing:0.14em; font-weight:700; color:var(--green-deep);
-  }
-  .info-piece .v{
-    font-weight:700; color:var(--navy); font-size:16px;
-  }
-  .info-sep{width:1px; align-self:stretch; background:var(--line);}
+}
 
-  .tagline{
-    text-align:center; max-width:560px; margin:38px auto 0; padding:0 24px;
-    color:var(--navy); font-size:18px; line-height:1.6;
-  }
-  .tagline .frau{font-style:italic; font-size:21px; color:var(--ink);}
+.info-piece{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    min-width:0;
+}
+
+.info-sep{
+    width:1px;
+    height:80px;
+    background:var(--line);
+    flex-shrink:0;
+}
 
   /* ---------- categories ---------- */
   .cats{
