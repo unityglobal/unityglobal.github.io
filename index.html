@@ -298,6 +298,56 @@
   .footer-motto .dot{color:var(--gold);}
   .footer-fine{margin-top:22px; font-size:11.5px; color:#f2efe499;}
 
+  /* ---------- discussion board ---------- */
+  .discussion{
+    max-width:760px; margin:60px auto 0; padding:0 24px;
+  }
+  .discussion h2{
+    text-align:center; font-size:clamp(24px,4vw,32px); color:var(--navy); margin-bottom:6px;
+  }
+  .discussion .sub{
+    text-align:center; color:var(--ink-soft); font-size:14.5px; margin-bottom:28px;
+  }
+  .disc-form{
+    background:var(--paper); border:1px solid var(--line); border-radius:16px;
+    padding:22px; box-shadow:0 18px 40px -26px rgba(20,49,90,0.35);
+  }
+  .disc-form-row{display:flex; gap:12px; margin-bottom:12px; flex-wrap:wrap;}
+  .disc-form input[type="text"],
+  .disc-form textarea{
+    width:100%; font-family:'Inter',sans-serif; font-size:14.5px;
+    border:1px solid var(--line); border-radius:10px; padding:12px 14px;
+    background:var(--cream); color:var(--ink); resize:vertical;
+  }
+  .disc-form input[type="text"]:focus,
+  .disc-form textarea:focus{outline:2px solid var(--gold); outline-offset:1px;}
+  .disc-form textarea{min-height:80px;}
+  .disc-name{flex:1; min-width:160px;}
+  .disc-submit-row{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:4px;}
+  .disc-char-count{font-size:12px; color:var(--ink-soft);}
+  .disc-submit{
+    background:var(--green-deep); color:#fff; border:none; border-radius:10px;
+    padding:11px 22px; font-weight:700; font-size:14px; cursor:pointer;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .disc-submit:hover{background:var(--green); transform:translateY(-2px);}
+  .disc-submit:disabled{opacity:.5; cursor:not-allowed; transform:none;}
+  .disc-status{font-size:13px; margin-top:10px; min-height:16px;}
+  .disc-status.error{color:#a3402f;}
+  .disc-status.ok{color:var(--green-deep);}
+
+  .disc-list{margin-top:26px; display:flex; flex-direction:column; gap:14px;}
+  .disc-empty{text-align:center; color:var(--ink-soft); font-size:14px; padding:20px 0;}
+  .disc-item{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:16px 18px;
+  }
+  .disc-item-head{display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:6px;}
+  .disc-item-name{font-weight:700; color:var(--navy); font-size:14.5px;}
+  .disc-item-time{font-size:11.5px; color:var(--ink-soft); white-space:nowrap;}
+  .disc-item-msg{font-size:14.5px; color:var(--ink); line-height:1.6; white-space:pre-wrap; word-wrap:break-word;}
+  .disc-loading{text-align:center; color:var(--ink-soft); font-size:14px; padding:20px 0;}
+
   @keyframes settle{from{opacity:0; transform:translateY(-8px);} to{opacity:1; transform:translateY(0);}}
   @keyframes bloom{from{opacity:0; transform:scale(0.6) rotate(-6deg);} to{opacity:1; transform:scale(1) rotate(0);}}
 
@@ -433,6 +483,30 @@
   <div class="cta-note">Registration takes less than five minutes.</div>
 </section>
 
+<!-- discussion / message board -->
+<section class="discussion">
+  <h2 class="display">Discussion Board</h2>
+  <p class="sub">Questions, greetings, or carpool plans — post below. Visible to everyone.</p>
+
+  <div class="disc-form">
+    <div class="disc-form-row">
+      <input type="text" id="disc-name" class="disc-name" placeholder="Your name" maxlength="60">
+    </div>
+    <div class="disc-form-row">
+      <textarea id="disc-message" placeholder="Write a message…" maxlength="500"></textarea>
+    </div>
+    <div class="disc-submit-row">
+      <span class="disc-char-count" id="disc-char-count">0 / 500</span>
+      <button class="disc-submit" id="disc-submit-btn">Post Message</button>
+    </div>
+    <div class="disc-status" id="disc-status"></div>
+  </div>
+
+  <div class="disc-list" id="disc-list">
+    <div class="disc-loading" id="disc-loading">Loading discussion…</div>
+  </div>
+</section>
+
 <footer>
   <svg class="wave" viewBox="0 0 400 60" preserveAspectRatio="none"><path d="M0 40 C80 10 160 55 240 30 C300 12 350 40 400 25 L400 60 L0 60 Z" fill="var(--navy-deep)"/></svg>
 
@@ -466,7 +540,7 @@
 
 <script>
   // ---- Total registered (update this number as registrations come in) ----
-  const TOTAL_REGISTERED = 2;
+  const TOTAL_REGISTERED = 0;
 
   // Animate the registered count on load
   (function(){
@@ -519,6 +593,135 @@
 
   updateCountdown();
   setInterval(updateCountdown, 1000);
+</script>
+
+<!-- ============================================================
+     DISCUSSION BOARD — powered by Firebase Firestore (free tier)
+     SETUP REQUIRED — see instructions in the chat / README.
+     1. Create a free project at https://console.firebase.google.com
+     2. Add a "Web App" and copy its firebaseConfig object below.
+     3. Enable "Firestore Database" (start in test mode, then lock
+        down with the security rules provided separately).
+     ============================================================ -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+  // ---- 1. PASTE YOUR FIREBASE CONFIG HERE ----
+   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCviuPXa4Hkga6QvVA3BdGsTcgJxpmxOUk",
+  authDomain: "unityglobal-993ef.firebaseapp.com",
+  projectId: "unityglobal-993ef",
+  storageBucket: "unityglobal-993ef.firebasestorage.app",
+  messagingSenderId: "251402530979",
+  appId: "1:251402530979:web:2b40d2fce141790feccf16",
+  measurementId: "G-8GMGCGQ26P"
+};
+
+  const FIREBASE_CONFIGURED = firebaseConfig.apiKey !== "YOUR_API_KEY";
+
+  const nameInput = document.getElementById('disc-name');
+  const msgInput = document.getElementById('disc-message');
+  const charCount = document.getElementById('disc-char-count');
+  const submitBtn = document.getElementById('disc-submit-btn');
+  const statusEl = document.getElementById('disc-status');
+  const listEl = document.getElementById('disc-list');
+  const loadingEl = document.getElementById('disc-loading');
+
+  msgInput.addEventListener('input', () => {
+    charCount.textContent = `${msgInput.value.length} / 500`;
+  });
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function timeAgo(date){
+    const secs = Math.floor((Date.now() - date.getTime()) / 1000);
+    if (secs < 60) return 'just now';
+    const mins = Math.floor(secs / 60);
+    if (mins < 60) return `${mins}m ago`;
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return `${hrs}h ago`;
+    const days = Math.floor(hrs / 24);
+    if (days < 30) return `${days}d ago`;
+    return date.toLocaleDateString();
+  }
+
+  function renderMessages(messages){
+    if (messages.length === 0){
+      listEl.innerHTML = '<div class="disc-empty">No messages yet — be the first to say hello.</div>';
+      return;
+    }
+    listEl.innerHTML = messages.map(m => `
+      <div class="disc-item">
+        <div class="disc-item-head">
+          <span class="disc-item-name">${escapeHtml(m.name)}</span>
+          <span class="disc-item-time">${m.time}</span>
+        </div>
+        <div class="disc-item-msg">${escapeHtml(m.message)}</div>
+      </div>
+    `).join('');
+  }
+
+  if (!FIREBASE_CONFIGURED){
+    // No backend configured yet — show setup notice instead of crashing.
+    loadingEl.textContent = 'Discussion board isn\'t connected yet — add your Firebase config in index.html to activate it.';
+    submitBtn.disabled = true;
+    statusEl.textContent = 'Posting is disabled until the board is connected to a database.';
+    statusEl.classList.add('error');
+  } else {
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const commentsRef = db.collection('sa-convention-2026-comments');
+
+    commentsRef.orderBy('createdAt', 'desc').limit(200)
+      .onSnapshot((snapshot) => {
+        const messages = snapshot.docs.map(doc => {
+          const data = doc.data();
+          const created = data.createdAt ? data.createdAt.toDate() : new Date();
+          return { name: data.name || 'Anonymous', message: data.message || '', time: timeAgo(created) };
+        });
+        renderMessages(messages);
+      }, (err) => {
+        loadingEl.textContent = 'Could not load messages — check Firestore rules and connection.';
+        console.error(err);
+      });
+
+    submitBtn.addEventListener('click', async () => {
+      const name = nameInput.value.trim();
+      const message = msgInput.value.trim();
+      statusEl.textContent = '';
+      statusEl.className = 'disc-status';
+
+      if (!name || !message){
+        statusEl.textContent = 'Please add your name and a message.';
+        statusEl.classList.add('error');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      try {
+        await commentsRef.add({
+          name: name.slice(0, 60),
+          message: message.slice(0, 500),
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        msgInput.value = '';
+        charCount.textContent = '0 / 500';
+        statusEl.textContent = 'Posted!';
+        statusEl.classList.add('ok');
+      } catch (err) {
+        statusEl.textContent = 'Could not post — please try again.';
+        statusEl.classList.add('error');
+        console.error(err);
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  }
 </script>
 
 </body>
