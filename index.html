@@ -346,7 +346,100 @@
   .disc-item-name{font-weight:700; color:var(--navy); font-size:14.5px;}
   .disc-item-time{font-size:11.5px; color:var(--ink-soft); white-space:nowrap;}
   .disc-item-msg{font-size:14.5px; color:var(--ink); line-height:1.6; white-space:pre-wrap; word-wrap:break-word;}
+  /* ---------- announcement banner (top) ---------- */
+  .announce-banner{
+    display:none;
+    background:linear-gradient(90deg,var(--gold),#b8862a);
+    color:#2a1f08;
+    padding:12px 20px;
+    text-align:center;
+    font-size:13.5px;
+    font-weight:600;
+    position:relative;
+  }
+  .announce-banner .pin{margin-right:8px;}
+  .announce-banner .close-x{
+    position:absolute; right:14px; top:50%; transform:translateY(-50%);
+    background:none; border:none; cursor:pointer; font-size:16px;
+    color:#2a1f08; opacity:0.7; line-height:1;
+  }
+  .announce-banner .close-x:hover{opacity:1;}
+
+  /* ---------- announcements section ---------- */
+  .announcements{
+    max-width:760px; margin:56px auto 0; padding:0 24px;
+  }
+  .announcements h2{
+    text-align:center; font-size:clamp(24px,4vw,32px); color:var(--navy); margin-bottom:6px;
+  }
+  .announcements .sub{
+    text-align:center; color:var(--ink-soft); font-size:14.5px; margin-bottom:26px;
+  }
+  .announce-list{display:flex; flex-direction:column; gap:14px;}
+  .announce-item{
+    background:var(--paper); border:1px solid var(--line); border-left:4px solid var(--gold);
+    border-radius:10px; padding:16px 18px;
+  }
+  .announce-item-head{display:flex; justify-content:space-between; align-items:baseline; gap:10px; margin-bottom:6px;}
+  .announce-item-title{font-weight:700; color:var(--navy); font-size:15px;}
+  .announce-item-time{font-size:11.5px; color:var(--ink-soft); white-space:nowrap;}
+  .announce-item-body{font-size:14.5px; color:var(--ink); line-height:1.6; white-space:pre-wrap; word-wrap:break-word;}
+  .announce-empty{text-align:center; color:var(--ink-soft); font-size:14px; padding:20px 0;}
+  .announce-loading{text-align:center; color:var(--ink-soft); font-size:14px; padding:20px 0;}
+
   .disc-loading{text-align:center; color:var(--ink-soft); font-size:14px; padding:20px 0;}
+
+  /* ---------- hidden admin modal ---------- */
+  .footer-lotus{cursor:pointer;}
+  .admin-modal-overlay{
+    display:none; position:fixed; inset:0; background:rgba(13,36,64,0.72);
+    z-index:1000; align-items:center; justify-content:center; padding:20px;
+  }
+  .admin-modal-overlay.open{display:flex;}
+  .admin-modal{
+    width:100%; max-width:460px; max-height:88vh; overflow-y:auto;
+    background:var(--paper); border-radius:18px; padding:28px;
+    box-shadow:0 30px 70px -20px rgba(0,0,0,0.5);
+    color:var(--ink); text-align:left;
+  }
+  .admin-modal h3{font-family:'Playfair Display',serif; font-size:21px; color:var(--navy); margin:0 0 4px;}
+  .admin-modal .sub{color:var(--ink-soft); font-size:13px; margin-bottom:20px;}
+  .admin-modal label{display:block; font-size:11.5px; font-weight:700; letter-spacing:0.04em; color:var(--green-deep); margin-bottom:5px; text-transform:uppercase;}
+  .admin-modal input, .admin-modal textarea{
+    width:100%; font-family:'Inter',sans-serif; font-size:14px;
+    border:1px solid var(--line); border-radius:9px; padding:10px 12px;
+    background:var(--cream); color:var(--ink); margin-bottom:14px; resize:vertical;
+  }
+  .admin-modal textarea{min-height:90px;}
+  .admin-modal input:focus, .admin-modal textarea:focus{outline:2px solid var(--gold); outline-offset:1px;}
+  .admin-modal button{
+    background:var(--navy); color:#fff; border:none; border-radius:9px;
+    padding:11px 18px; font-weight:700; font-size:13.5px; cursor:pointer; width:100%;
+  }
+  .admin-modal button:hover{background:var(--navy-deep);}
+  .admin-modal button:disabled{opacity:.5; cursor:not-allowed;}
+  .admin-modal .msg{font-size:12.5px; margin-top:10px; min-height:14px;}
+  .admin-modal .msg.error{color:#a3402f;}
+  .admin-modal .msg.ok{color:var(--green-deep);}
+  .admin-top-row{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;}
+  .admin-close-btn{
+    background:none; border:1px solid var(--line); color:var(--navy);
+    width:auto; padding:6px 12px; font-size:12px;
+  }
+  .admin-logout-btn{
+    background:none; border:1px solid var(--line); color:var(--navy);
+    width:auto; padding:6px 12px; font-size:12px; margin-top:0;
+  }
+  .admin-divider{height:1px; background:var(--line); margin:20px 0;}
+  .admin-existing-item{
+    border:1px solid var(--line); border-radius:9px; padding:10px 12px; margin-bottom:8px;
+    display:flex; justify-content:space-between; align-items:flex-start; gap:10px;
+  }
+  .admin-existing-item .txt{font-size:12.5px; line-height:1.5;}
+  .admin-existing-item .txt b{color:var(--navy);}
+  .admin-del-btn{background:#a3402f; width:auto; padding:5px 10px; font-size:11px; flex-shrink:0;}
+  .admin-del-btn:hover{background:#832f22;}
+  .hidden{display:none;}
 
   .disc-pagination{
     display:flex; align-items:center; justify-content:center; gap:16px;
@@ -371,6 +464,11 @@
 </head>
 <body>
 <div class="bg-texture"></div>
+
+<div class="announce-banner" id="announce-banner">
+  <span class="pin">📌</span><span id="announce-banner-text"></span>
+  <button class="close-x" id="announce-banner-close" aria-label="Dismiss">✕</button>
+</div>
 
 <header>
   <span class="badge">
@@ -496,6 +594,15 @@
   <div class="cta-note">Registration takes less than five minutes.</div>
 </section>
 
+<!-- announcements (read-only, posted from admin.html) -->
+<section class="announcements">
+  <h2 class="display">Announcements</h2>
+  <p class="sub">Updates from the organizing team.</p>
+  <div class="announce-list" id="announce-list">
+    <div class="announce-loading" id="announce-loading">Loading announcements…</div>
+  </div>
+</section>
+
 <!-- discussion / message board -->
 <section class="discussion">
   <h2 class="display">Discussion Board</h2>
@@ -529,7 +636,7 @@
 <footer>
   <svg class="wave" viewBox="0 0 400 60" preserveAspectRatio="none"><path d="M0 40 C80 10 160 55 240 30 C300 12 350 40 400 25 L400 60 L0 60 Z" fill="var(--navy-deep)"/></svg>
 
-  <svg class="footer-lotus" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6">
+  <svg class="footer-lotus" id="footer-lotus-trigger" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6">
     <path d="M32 46 C32 46 20 40 20 26 C20 18 26 12 32 8 C38 12 44 18 44 26 C44 40 32 46 32 46Z"/>
     <path d="M32 46 C32 46 12 44 6 30 C10 26 18 24 24 28"/>
     <path d="M32 46 C32 46 52 44 58 30 C54 26 46 24 40 28"/>
@@ -556,6 +663,52 @@
 
   <div class="footer-fine">SA Convention 2026 India · Hosted by Unity Global Intergroup</div>
 </footer>
+
+<!-- ============================================================
+     HIDDEN ADMIN PANEL
+     Not linked anywhere. Opens only when the small lotus icon in
+     the footer is clicked 5 times in a row. Protected by a real
+     Firebase Authentication login (not just a page-side check).
+     ============================================================ -->
+<div class="admin-modal-overlay" id="admin-overlay">
+  <div class="admin-modal">
+
+    <div id="admin-login-view">
+      <div class="admin-top-row">
+        <h3>Admin Login</h3>
+        <button class="admin-close-btn" id="admin-close-1">✕ Close</button>
+      </div>
+      <p class="sub">Sign in to post announcements.</p>
+      <label for="admin-email">Email</label>
+      <input type="email" id="admin-email" autocomplete="username">
+      <label for="admin-password">Password</label>
+      <input type="password" id="admin-password" autocomplete="current-password">
+      <button id="admin-login-btn">Sign In</button>
+      <div class="msg" id="admin-login-msg"></div>
+    </div>
+
+    <div id="admin-panel-view" class="hidden">
+      <div class="admin-top-row">
+        <h3>Post Announcement</h3>
+        <button class="admin-logout-btn" id="admin-logout-btn">Sign Out</button>
+      </div>
+      <label for="admin-title">Title</label>
+      <input type="text" id="admin-title" maxlength="80" placeholder="e.g. Registration deadline extended">
+      <label for="admin-body">Message</label>
+      <textarea id="admin-body" maxlength="600" placeholder="Write the announcement…"></textarea>
+      <button id="admin-post-btn">Post Announcement</button>
+      <div class="msg" id="admin-post-msg"></div>
+
+      <div class="admin-divider"></div>
+      <h3 style="font-size:15px;">Existing Announcements</h3>
+      <div id="admin-existing-list"></div>
+
+      <div class="admin-divider"></div>
+      <button class="admin-close-btn" id="admin-close-2" style="width:100%;">✕ Close Panel</button>
+    </div>
+
+  </div>
+</div>
 
 <script>
   // ---- Total registered (update this number as registrations come in) ----
@@ -624,9 +777,10 @@
      ============================================================ -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script>
   // ---- 1. PASTE YOUR FIREBASE CONFIG HERE ----
- const firebaseConfig = {
+  const firebaseConfig = {
   apiKey: "AIzaSyCviuPXa4Hkga6QvVA3BdGsTcgJxpmxOUk",
   authDomain: "unityglobal-993ef.firebaseapp.com",
   projectId: "unityglobal-993ef",
@@ -717,10 +871,67 @@
     submitBtn.disabled = true;
     statusEl.textContent = 'Posting is disabled until the board is connected to a database.';
     statusEl.classList.add('error');
+    document.getElementById('announce-loading').textContent = 'Announcements aren\'t connected yet.';
   } else {
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
     const commentsRef = db.collection('sa-convention-2026-comments');
+    const announcementsRef = db.collection('sa-convention-2026-announcements');
+
+    // ---- Announcements (public read-only) ----
+    const announceList = document.getElementById('announce-list');
+    const announceLoading = document.getElementById('announce-loading');
+    const bannerEl = document.getElementById('announce-banner');
+    const bannerTextEl = document.getElementById('announce-banner-text');
+    const bannerCloseBtn = document.getElementById('announce-banner-close');
+
+    function announceTimeAgo(date){ return timeAgo(date); }
+
+    announcementsRef.orderBy('createdAt', 'desc').limit(30)
+      .onSnapshot((snapshot) => {
+        if (snapshot.empty){
+          announceList.innerHTML = '<div class="announce-empty">No announcements yet.</div>';
+          return;
+        }
+        const docs = snapshot.docs.map(doc => {
+          const data = doc.data();
+          const created = data.createdAt ? data.createdAt.toDate() : new Date();
+          return {
+            id: doc.id,
+            title: data.title || 'Announcement',
+            body: data.body || '',
+            time: announceTimeAgo(created)
+          };
+        });
+
+        announceList.innerHTML = docs.map(a => `
+          <div class="announce-item">
+            <div class="announce-item-head">
+              <span class="announce-item-title">${escapeHtml(a.title)}</span>
+              <span class="announce-item-time">${a.time}</span>
+            </div>
+            <div class="announce-item-body">${escapeHtml(a.body)}</div>
+          </div>
+        `).join('');
+
+        // Show the newest announcement as a dismissible top banner,
+        // unless the visitor already dismissed this exact one this session.
+        const latest = docs[0];
+        const dismissedId = sessionStorage.getItem('dismissedAnnouncementId');
+        if (latest.id !== dismissedId){
+          bannerTextEl.textContent = `${latest.title} — ${latest.body}`;
+          bannerEl.style.display = 'block';
+        }
+        bannerCloseBtn.onclick = () => {
+          bannerEl.style.display = 'none';
+          sessionStorage.setItem('dismissedAnnouncementId', latest.id);
+        };
+      }, (err) => {
+        announceLoading.textContent = 'Could not load announcements.';
+        console.error(err);
+      });
+
+    // ---- Discussion board ----
 
     let firstLoad = true;
 
@@ -778,6 +989,129 @@
         submitBtn.disabled = false;
       }
     });
+
+    // ---- Hidden admin panel (click footer lotus 5x to open) ----
+    const auth = firebase.auth();
+    const overlay = document.getElementById('admin-overlay');
+    const loginView = document.getElementById('admin-login-view');
+    const panelView = document.getElementById('admin-panel-view');
+    const adminEmail = document.getElementById('admin-email');
+    const adminPassword = document.getElementById('admin-password');
+    const adminLoginBtn = document.getElementById('admin-login-btn');
+    const adminLoginMsg = document.getElementById('admin-login-msg');
+    const adminLogoutBtn = document.getElementById('admin-logout-btn');
+    const adminTitle = document.getElementById('admin-title');
+    const adminBody = document.getElementById('admin-body');
+    const adminPostBtn = document.getElementById('admin-post-btn');
+    const adminPostMsg = document.getElementById('admin-post-msg');
+    const adminExistingList = document.getElementById('admin-existing-list');
+    const lotusTrigger = document.getElementById('footer-lotus-trigger');
+
+    // secret trigger: 5 clicks within 3 seconds
+    let clickCount = 0;
+    let clickTimer = null;
+    lotusTrigger.addEventListener('click', () => {
+      clickCount++;
+      if (clickTimer) clearTimeout(clickTimer);
+      clickTimer = setTimeout(() => { clickCount = 0; }, 3000);
+      if (clickCount >= 5){
+        clickCount = 0;
+        overlay.classList.add('open');
+      }
+    });
+
+    function closeOverlay(){ overlay.classList.remove('open'); }
+    document.getElementById('admin-close-1').addEventListener('click', closeOverlay);
+    document.getElementById('admin-close-2').addEventListener('click', closeOverlay);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeOverlay(); });
+
+    auth.onAuthStateChanged((user) => {
+      if (user){
+        loginView.classList.add('hidden');
+        panelView.classList.remove('hidden');
+        loadAdminAnnouncements();
+      } else {
+        loginView.classList.remove('hidden');
+        panelView.classList.add('hidden');
+      }
+    });
+
+    adminLoginBtn.addEventListener('click', async () => {
+      adminLoginMsg.textContent = '';
+      adminLoginMsg.className = 'msg';
+      adminLoginBtn.disabled = true;
+      try {
+        await auth.signInWithEmailAndPassword(adminEmail.value.trim(), adminPassword.value);
+        adminPassword.value = '';
+      } catch (err){
+        adminLoginMsg.textContent = 'Sign in failed — check email and password.';
+        adminLoginMsg.classList.add('error');
+        console.error(err);
+      } finally {
+        adminLoginBtn.disabled = false;
+      }
+    });
+
+    adminLogoutBtn.addEventListener('click', () => auth.signOut());
+
+    adminPostBtn.addEventListener('click', async () => {
+      const title = adminTitle.value.trim();
+      const body = adminBody.value.trim();
+      adminPostMsg.textContent = '';
+      adminPostMsg.className = 'msg';
+
+      if (!title || !body){
+        adminPostMsg.textContent = 'Please add a title and a message.';
+        adminPostMsg.classList.add('error');
+        return;
+      }
+
+      adminPostBtn.disabled = true;
+      try {
+        await announcementsRef.add({
+          title: title.slice(0, 80),
+          body: body.slice(0, 600),
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          postedBy: auth.currentUser.email
+        });
+        adminTitle.value = '';
+        adminBody.value = '';
+        adminPostMsg.textContent = 'Posted to the convention page.';
+        adminPostMsg.classList.add('ok');
+      } catch (err){
+        adminPostMsg.textContent = 'Could not post — check Firestore rules.';
+        adminPostMsg.classList.add('error');
+        console.error(err);
+      } finally {
+        adminPostBtn.disabled = false;
+      }
+    });
+
+    function loadAdminAnnouncements(){
+      announcementsRef.orderBy('createdAt', 'desc').limit(30)
+        .onSnapshot((snapshot) => {
+          if (snapshot.empty){
+            adminExistingList.innerHTML = '<p class="sub">No announcements posted yet.</p>';
+            return;
+          }
+          adminExistingList.innerHTML = snapshot.docs.map(doc => {
+            const d = doc.data();
+            return `
+              <div class="admin-existing-item">
+                <div class="txt"><b>${escapeHtml(d.title || '')}</b><br>${escapeHtml(d.body || '')}</div>
+                <button class="admin-del-btn" data-id="${doc.id}">Delete</button>
+              </div>
+            `;
+          }).join('');
+
+          adminExistingList.querySelectorAll('.admin-del-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+              if (!confirm('Delete this announcement?')) return;
+              await announcementsRef.doc(btn.dataset.id).delete();
+            });
+          });
+        });
+    }
   }
 </script>
 
